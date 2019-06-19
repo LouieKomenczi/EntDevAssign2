@@ -1,0 +1,30 @@
+﻿@page
+@model Creche.Pages.DeleteModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2 style="color:red">You are about to DELETE </h2>
+
+
+        <h2>@Model.Student.FirstName @Model.Student.LastName</h2>
+
+        <div>
+            <label asp-for=@Model.Student.Pps></label>: @Model.Student.Pps
+        </div>
+
+        <div>
+            <label asp-for=@Model.Student.Dob> </label>: @Model.Student.Dob.ToShortDateString()
+        </div>
+        
+   
+        <form method="post">
+            @*<div class="form-group">
+                <label asp-for=ConfirmPPS></label><br />
+                <input asp-for=ConfirmPPS />
+            </div>*@
+
+            <button type="submit" class="btn btn-primary">Delete Student</button>
+            <a asp-page="Detail" asp-route-ID="@Model.Student.ID" class="btn btn-primary"> Back To Details </a>
+        </form>
+

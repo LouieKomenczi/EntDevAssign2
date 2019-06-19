@@ -1,0 +1,20 @@
+﻿@page
+@model Creche.Pages.IndexModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+<img src="~/images/Crech.jpg" class="img-fluid max-width:50% " style="height:500px; ">
+
+
+<h3>@Model.Message</h3>
+@*consuming API user side*@
+<h3 id="temp"></h3>
+@*consuming API server side*@
+<h3>Temperature in Sligo is @Model.weather.main.temp with @Model.weather.weather[0].description</h3>
+
+
+
+

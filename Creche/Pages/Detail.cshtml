@@ -1,0 +1,92 @@
+﻿@page
+
+@model Creche.Pages.DetailModel
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+@*This page generates HTMl for detailes info of a student, acces from view page, ID is passed allong to find the student we need the details for*@
+@foreach (var student in Model.Students)
+{
+    if (student.ID == @Convert.ToInt32(Model.ID))
+    {
+        <h2>Details for - @student.FirstName @student.LastName - Student ID:@student.ID</h2>
+
+        <div>
+            <label asp-for=@student.Pps></label>: @student.Pps
+        </div>
+
+        <div>
+            <label asp-for=@student.Dob> </label>: @student.Dob.ToShortDateString()
+        </div>
+
+        <div>
+            <label asp-for=@student.Gender> </label>: @student.Gender
+        </div>
+
+        <div>
+            <label asp-for=@student.ParentFirstName> </label>: @student.ParentFirstName
+        </div>
+
+        <div>
+            <label asp-for=@student.ParentLastName></label>: @student.ParentLastName
+        </div>
+
+        <div>
+
+            <label asp-for=@student.Relationship> </label>: @student.Relationship
+
+        </div>
+
+        <div>
+            <label asp-for=@student.Address></label>: @student.Address
+
+        </div>
+
+        <div>
+            <label asp-for=@student.MobileNumber></label>: @student.MobileNumber
+        </div>
+
+        <div>
+            <label asp-for=@student.SecondNumber></label>: @student.SecondNumber
+
+        </div>
+
+        <div>
+            <label asp-for=@student.OtherNumber></label>: @student.OtherNumber
+        </div>
+
+        <div>
+            <label asp-for=@student.Email></label>: @student.Email
+        </div>
+
+        <div>
+            <label asp-for=@student.SecondEmail></label>: @student.SecondEmail
+        </div>
+
+        <div>
+            <label asp-for=@student.Hours> </label>: @student.Hours
+        </div>
+
+        <div>
+            <label asp-for=@student.Days></label>: @student.Days
+        </div>
+
+        <div>
+            <label asp-for=@student.StartDate> </label>: @student.StartDate.ToShortDateString()
+        </div>
+
+        <div>
+            <label asp-for=@student.Cost> </label>: @student.Cost
+        </div>
+
+        <a class="btn btn-primary" asp-page="Edit"  asp-route-ID="@student.ID" role="button">Edit</a>
+        <a class="btn btn-primary" asp-page="Delete" asp-route-ID="@student.ID" role="button">Delete</a>
+        <a class="btn btn-primary" href="View" role="button">Close</a>
+    }
+}
+
+        
+

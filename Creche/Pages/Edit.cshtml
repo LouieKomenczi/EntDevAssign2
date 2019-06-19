@@ -1,0 +1,206 @@
+﻿@page
+@model Creche.Pages.EditModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2 style="color:red"> Edit information for @Model.Student.FirstName @Model.Student.LastName </h2>
+
+<form method="post">
+    <div>
+        <input asp-for=Student.ID hidden />
+    </div>
+
+    <fieldset>
+        <legend>About the child</legend> @*form entries for child information*@
+        <div class="form-group">
+            <label asp-for=Student.FirstName></label><br />
+            <input asp-for=Student.FirstName />
+            <span asp-validation-for="Student.FirstName"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for=Student.LastName></label><br />
+            <input asp-for=Student.LastName />
+            <span asp-validation-for="Student.LastName"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for=Student.Pps></label><br />
+            <input asp-for=Student.Pps />
+            <span asp-validation-for="Student.Pps"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for=Student.Dob> </label><br />
+            <input asp-for=Student.Dob value=@Model.Dob/>
+            <span asp-validation-for="Student.Dob"></span>
+        </div>
+
+        <div class="form-group">
+            @*test if this is a returned page due to error, if not generate radio buton for gender*@
+            @if (!Model.Error)
+            {
+                @for (int i = 0; i < Model.Gender.Length; i++)
+                {
+                    <label>
+                        <input asp-for=Student.Gender type="radio" value=@Model.Gender[i] />
+                        @Model.Gender[i]
+                    </label>
+                }
+                <span asp-validation-for="Student.Gender"></span>
+            }
+            @*we arrive here due to a server side validation error radio button was already picked hence we just reload the data saved *@
+            else
+            {
+                <label>
+                    <input asp-for=Student.Gender type=radio value=@Model.Student.Gender checked="checked" />
+                    @Model.Student.Gender
+                </label>
+            }
+        </div>
+
+    </fieldset>
+
+    <fieldset id="fs_parent">
+        @*form entries for parent information*@
+        <legend>About the parent</legend>
+        <div class="form-group">
+            <label asp-for=Student.ParentFirstName></label><br />
+            <input asp-for=Student.ParentFirstName />
+            <span asp-validation-for="Student.ParentFirstName"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for=Student.ParentLastName></label><br />
+            <input asp-for=Student.ParentLastName />
+            <span asp-validation-for="Student.ParentLastName"></span>
+        </div>
+
+        @*test if this is a returned page due to error, if not generate radio buton for relationship*@
+        @if (!Model.Error)
+        {
+            <div class="form-group">
+                @for (int i = 0; i < Model.Relationship.Length; i++)
+                {
+                    <label>
+                        <input asp-for=Student.Relationship value=@Model.Relationship[i] type="radio" />
+                        @Model.Relationship[i]
+                    </label>
+
+                }
+                <span asp-validation-for="Student.Relationship"></span>
+            </div>
+
+        }
+        @*we arrive here due to a server side validation error radio button was already picked hence we just reload the data saved *@
+        else
+        {
+            <label>
+                <input asp-for=Student.Relationship type="radio" value="@Model.Student.Relationship" checked="checked" />
+                @Model.Student.Relationship
+            </label>
+
+        }
+
+        <div class="form-group">
+            <label asp-for=Student.Address></label><br />
+            <input asp-for=Student.Address />
+            <span asp-validation-for="Student.Address"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for=Student.MobileNumber></label><br />
+            <input asp-for=Student.MobileNumber />
+            <span asp-validation-for="Student.MobileNumber"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for=Student.SecondNumber></label><br />
+            <input asp-for=Student.SecondNumber />
+            <span asp-validation-for="Student.SecondNumber"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for=Student.OtherNumber></label><br />
+            <input asp-for=Student.OtherNumber />
+            <span asp-validation-for="Student.OtherNumber"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for=Student.Email></label><br />
+            <input asp-for=Student.Email />
+            <span asp-validation-for="Student.Email"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for=Student.SecondEmail></label><br />
+            <input asp-for=Student.SecondEmail />
+            <span asp-validation-for="Student.SecondEmail"></span>
+        </div>
+
+    </fieldset>
+
+    <fieldset id="fs_creche">
+        <legend>About the creche</legend>@*form entries for creche attendance information*@
+
+        @*test if this is a returned page due to error, if not generate radio button for part time/ full time*@
+        @if (!Model.Error)
+        {
+            <div class="form-group">
+                @for (int i = 0; i < Model.Hours.Length; i++)
+                {
+                    <label>
+                        <input asp-for=Student.Hours type="radio" value=@Model.Hours[i] />
+                        @Model.Hours[i]
+                    </label>
+                }
+                <span asp-validation-for="Student.Hours"></span>
+            </div>
+        }
+        @*we arrive here due to a server side validation error radio button was already picked hence we just reload the data saved *@
+        else
+        {
+            <label>
+                <input asp-for=Student.Hours type="radio" value="@Model.Student.Hours" checked="checked" />
+                @Model.Student.Hours
+            </label>
+        }
+
+        @*if no days selected generate red input field*@
+        @if (!Model.ValidDays)
+        {
+            <div class="text-danger form-group">
+                @for (int i = 0; i < Model.Days.Length; i++)
+                {
+                    <label asp-for=DaysSelected[i]>@Model.Days[i]</label>
+                    <input asp-for=DaysSelected[i] type="checkbox" />
+                }You must select at least one Day.
+            </div>
+        }
+        else
+        {
+            <div class="form-group">
+                @for (int i = 0; i < Model.Days.Length; i++)
+                {
+                    <input asp-for=DaysSelected[i] type="checkbox" />
+                    <label asp-for=DaysSelected[i]>@Model.Days[i]</label>
+                }
+
+            </div>
+        }
+
+      
+        <div class="form-group">
+            <label asp-for=Student.StartDate> </label><br />
+            <input asp-for=Student.StartDate value=@Model.StartDate/>
+            <span asp-validation-for="Student.StartDate"></span>
+        </div>
+
+    </fieldset>
+    <button type="submit" class="btn btn-primary"> Update Info </button>
+    <a asp-page="Detail" asp-route-ID="@Model.Student.ID" class="btn btn-primary"> Back To Details </a>
+</form>
+
+
+
